@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Rodeo Lens</title>
+
+    <!-- Scorpion favicon -->
     <link rel="icon" type="image/png" href="Scorpion.png">
     <link rel="apple-touch-icon" href="Scorpion.png">
 
@@ -154,8 +156,8 @@
 
 <body>
 <header class="topbar">
-    <!-- Manifesto moved to top-left, text only -->
-    <a class="manifesto-link" href="manifesto/">Manifesto</a>
+    <!-- Use absolute path so URL stays clean -->
+    <a class="manifesto-link" href="/manifesto/">Manifesto</a>
 
     <div class="brand" aria-hidden="true">
         <img src="RodeoLens.png" alt="Rodeo Lens" />
@@ -163,7 +165,8 @@
 </header>
 
 <main class="wrap">
-    <a class="scorpion-link" href="manifesto/" aria-label="Open Manifesto">
+    <!-- Use absolute path so URL stays clean -->
+    <a class="scorpion-link" href="/manifesto/" aria-label="Open Manifesto">
         <div class="scorpion-fade">
             <div class="scorpion-hover">
                 <img class="scorpion-img" src="Scorpion.png" alt="Scorpion" />
@@ -171,5 +174,12 @@
         </div>
     </a>
 </main>
+
+<!-- Optional: if someone lands on /index.html, normalize to / -->
+<script>
+    if (location.pathname.endsWith("/index.html")) {
+        history.replaceState(null, "", location.pathname.replace("/index.html", "/") + location.search + location.hash);
+    }
+</script>
 </body>
 </html>

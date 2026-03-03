@@ -31,7 +31,7 @@
             overflow-x:hidden;
         }
 
-        /* Top bar (same style as home) */
+        /* Top bar (logo centered, plus Manifesto link on left like home) */
         .topbar{
             position:fixed;
             inset:0 0 auto 0;
@@ -43,7 +43,7 @@
             z-index:10;
         }
 
-        /* "Manifesto" link (top-left, text only) -> goes HOME */
+        /* Manifesto text link stays at top; clicking goes HOME */
         .manifesto-link{
             position:absolute;
             top:18px;
@@ -68,7 +68,7 @@
             text-underline-offset: 6px;
         }
 
-        /* Centered logo, clickable home too */
+        /* Center logo, clickable to home */
         .brand-link{
             pointer-events:auto;
             display:inline-flex;
@@ -101,7 +101,7 @@
             padding:120px 20px 60px;
         }
 
-        /* Plain bordered manifesto box */
+        /* Bigger, plain bordered manifesto box */
         .manifesto-box{
             width: min(1200px, 94vw);
             min-height: min(720px, 72vh);
@@ -110,11 +110,10 @@
             border-radius: 0;
             padding: 26px 26px;
 
-            /* preserve line breaks */
             white-space: pre-wrap;
         }
 
-        /* Match the main-page MANIFESTO link typographic style */
+        /* Match main-page Manifesto link font style */
         .manifesto-text{
             margin:0;
             color: var(--fg);
@@ -131,7 +130,7 @@
         @media (max-width: 520px){
             .manifesto-box{
                 padding: 18px;
-                min-height: min(520px, 68vh);
+                min-height: min(720px, 78vh);
             }
             .manifesto-link{ font-size:13px; }
             .manifesto-text{
@@ -144,11 +143,11 @@
 
 <body>
 <header class="topbar">
-    <!-- Stays at top; clicking goes HOME -->
-    <a class="manifesto-link" href="../index.html">Manifesto</a>
+    <!-- Stays at top; clicking goes HOME (absolute path keeps URL clean) -->
+    <a class="manifesto-link" href="/">Manifesto</a>
 
-    <!-- Logo centered; also goes HOME -->
-    <a class="brand-link" href="../index.html" aria-label="Go to Home">
+    <!-- Logo centered; goes HOME -->
+    <a class="brand-link" href="/" aria-label="Go to Home">
         <img src="../RodeoLens.png" alt="Rodeo Lens" />
     </a>
 </header>
