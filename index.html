@@ -44,8 +44,8 @@
             top:18px;
             right:22px;
 
-            pointer-events:auto;            /* <-- allows clicking */
-            text-decoration:none;           /* <-- link styling */
+            pointer-events:auto;            /* allows clicking */
+            text-decoration:none;
             color:var(--fg);
 
             letter-spacing:.18em;
@@ -93,7 +93,7 @@
             padding:120px 20px 60px;
         }
 
-        /* Make the scorpion clickable */
+        /* Scorpion link wrapper */
         .scorpion-link{
             display:inline-block;
             text-decoration:none;
@@ -101,7 +101,7 @@
             cursor:pointer;
         }
 
-        /* Fade-in wrapper (keeps fade separate from the image itself) */
+        /* Fade-in wrapper */
         .scorpion-anim{
             display:inline-block;
             opacity:0;
@@ -111,6 +111,17 @@
             filter:
                     drop-shadow(0 26px 38px rgba(0,0,0,.65))
                     drop-shadow(0 0 18px rgba(255,255,255,.04));
+
+            transition: transform 180ms ease, filter 180ms ease;
+            transform-origin: center;
+        }
+
+        /* Hover pop (slightly bigger) */
+        .scorpion-link:hover .scorpion-anim{
+            transform: translateY(-2px) scale(1.04);
+            filter:
+                    drop-shadow(0 30px 44px rgba(0,0,0,.70))
+                    drop-shadow(0 0 22px rgba(255,255,255,.06));
         }
 
         .scorpion-img{
@@ -134,13 +145,15 @@
                 opacity:1;
                 transform:none;
             }
+            .scorpion-link:hover .scorpion-anim{
+                transform:none;
+            }
         }
     </style>
 </head>
 
 <body>
 <header class="topbar">
-    <!-- CLICKABLE Manifesto -->
     <a class="manifesto-pill" href="manifesto.html">Manifesto</a>
 
     <div class="brand" aria-hidden="true">
@@ -149,7 +162,6 @@
 </header>
 
 <main class="wrap">
-    <!-- CLICKABLE Scorpion -->
     <a class="scorpion-link" href="manifesto.html" aria-label="Open Manifesto">
         <div class="scorpion-anim">
             <img class="scorpion-img" src="Scorpion.png" alt="Scorpion" />

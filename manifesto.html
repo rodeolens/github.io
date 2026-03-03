@@ -3,47 +3,51 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Rodeo Lens</title>
-
+    <title>Manifesto — Rodeo Lens</title>
     <style>
         :root{
             --bg:#070707;
             --fg:#f2f2f2;
+            --muted:#bdbdbd;
             --edge: rgba(255,255,255,.12);
         }
 
         *{ box-sizing:border-box; }
         html,body{ height:100%; }
-
         body{
             margin:0;
-            background:
-                    radial-gradient(1200px 700px at 50% 30%, rgba(255,255,255,.06), transparent 60%),
-                    radial-gradient(900px 600px at 50% 80%, rgba(255,255,255,.03), transparent 55%),
-                    var(--bg);
+            background: radial-gradient(1200px 700px at 50% 20%, rgba(255,255,255,.06), transparent 60%),
+            var(--bg);
             color:var(--fg);
-            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-            overflow-x:hidden;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
         }
 
-        /* Top bar */
-        .topbar{
-            position:fixed;
-            inset:0 0 auto 0;
-            padding:18px 22px;
-            display:flex;
-            align-items:flex-start;
-            justify-content:center;
-            pointer-events:none; /* nothing clickable up here */
+        header{
+            position:sticky;
+            top:0;
             z-index:10;
+            padding:18px 22px;
+            border-bottom:1px solid rgba(255,255,255,.06);
+            background: linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.35));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:14px;
         }
 
-        /* Manifesto text pill (NOT a link) */
-        .manifesto-pill{
-            position:absolute;
-            top:18px;
-            right:22px;
-            pointer-events:none;
+        .brand img{
+            height:34px;
+            width:auto;
+            opacity:.95;
+            user-select:none;
+            -webkit-user-drag:none;
+            filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));
+        }
+
+        .nav a{
+            text-decoration:none;
             color:var(--fg);
             letter-spacing:.18em;
             text-transform:uppercase;
@@ -52,86 +56,80 @@
             border:1px solid var(--edge);
             border-radius:999px;
             background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            user-select:none;
+            transition: transform .15s ease, border-color .15s ease, background .15s ease;
+        }
+        .nav a:hover{
+            transform: translateY(-1px);
+            border-color: rgba(255,255,255,.25);
+            background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
         }
 
-        .brand{
-            pointer-events:none;
-            display:flex;
-            justify-content:center;
-            width:100%;
+        main{
+            max-width:860px;
+            margin:0 auto;
+            padding:42px 22px 80px;
         }
 
-        .brand img{
-            height:44px;
-            width:auto;
-            opacity:.95;
-            filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));
-            user-select:none;
-            -webkit-user-drag:none;
+        h1{
+            margin:0 0 10px;
+            font-size:38px;
+            letter-spacing:.06em;
+            text-transform:uppercase;
         }
 
-        /* Center layout */
-        .wrap{
-            min-height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:120px 20px 60px;
+        .sub{
+            color:var(--muted);
+            letter-spacing:.12em;
+            text-transform:uppercase;
+            font-size:12px;
+            margin-bottom:34px;
         }
 
-        /* Fade-in wrapper (keeps fade separate from the image itself) */
-        .scorpion-anim{
-            display:inline-block;
-            opacity:0;
-            transform: translateY(10px);
-            animation: scorpionFadeIn 900ms ease-out 120ms forwards;
-
-            filter:
-                    drop-shadow(0 26px 38px rgba(0,0,0,.65))
-                    drop-shadow(0 0 18px rgba(255,255,255,.04));
+        .panel{
+            border:1px solid rgba(255,255,255,.10);
+            border-radius:18px;
+            padding:22px;
+            background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+            box-shadow: 0 22px 60px rgba(0,0,0,.55);
         }
 
-        .scorpion-img{
-            width: min(520px, 82vw);
-            height:auto;
-            display:block;
-            user-select:none;
-            -webkit-user-drag:none;
+        p{
+            color:#e6e6e6;
+            line-height:1.7;
+            margin:0 0 14px;
+            font-size:16px;
         }
 
-        @keyframes scorpionFadeIn{
-            to{
-                opacity:1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce){
-            .scorpion-anim{
-                animation:none;
-                opacity:1;
-                transform:none;
-            }
+        .rule{
+            margin:18px 0;
+            height:1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+            opacity:.7;
         }
     </style>
 </head>
 
 <body>
-<header class="topbar">
-    <div class="manifesto-pill">Manifesto</div>
-
-    <div class="brand" aria-hidden="true">
+<header>
+    <div class="brand">
         <img src="RodeoLens.png" alt="Rodeo Lens" />
     </div>
+
+    <nav class="nav">
+        <a href="index.html">Home</a>
+    </nav>
 </header>
 
-<main class="wrap">
-    <div class="scorpion-anim">
-        <img class="scorpion-img" src="Scorpion.png" alt="Scorpion" />
-    </div>
+<main>
+    <h1>Manifesto</h1>
+    <div class="sub">Black. White. Chrome. Minimal intent.</div>
+
+    <section class="panel">
+        <p><strong>Rodeo Lens</strong> is built on clarity—no noise, no filler, just signal.</p>
+        <div class="rule"></div>
+        <p>Write your manifesto here. Keep it sharp. Short sentences hit harder.</p>
+        <p>Use this page for story, values, and direction.</p>
+    </section>
 </main>
 </body>
 </html>
