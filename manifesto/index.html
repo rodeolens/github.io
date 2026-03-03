@@ -109,8 +109,21 @@
             background: transparent;
             border-radius: 0;
             padding: 26px 26px;
-
             white-space: pre-wrap;
+        }
+
+        /* Fade-in like the scorpion (opacity + slight rise) */
+        .manifesto-fade{
+            opacity:0;
+            transform: translateY(10px);
+            animation: manifestoFadeIn 900ms ease-out 80ms forwards;
+        }
+
+        @keyframes manifestoFadeIn{
+            to{
+                opacity:1;
+                transform: translateY(0);
+            }
         }
 
         /* Match main-page Manifesto link font style */
@@ -136,6 +149,14 @@
             .manifesto-text{
                 font-size: 13px;
                 letter-spacing: .16em;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .manifesto-fade{
+                animation:none;
+                opacity:1;
+                transform:none;
             }
         }
 
@@ -255,7 +276,7 @@
         </div>
     </button>
 
-    <!-- Mobile dropdown (currently just Manifesto -> Home, since you're already on Manifesto page) -->
+    <!-- Mobile dropdown (currently just Home, since you're already on Manifesto page) -->
     <nav class="menu-panel" id="menuPanel" aria-label="Site menu">
         <a href="/">Home</a>
     </nav>
@@ -270,7 +291,8 @@
 </header>
 
 <main class="wrap">
-    <div class="manifesto-box">
+    <!-- added manifesto-fade here -->
+    <div class="manifesto-box manifesto-fade">
         <p class="manifesto-text placeholder">insert manifesto.</p>
 
         <!-- Example:
