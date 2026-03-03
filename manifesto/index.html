@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Manifesto — Rodeo Lens</title>
+
     <style>
         :root{
             --bg:#070707;
             --fg:#f2f2f2;
             --muted:#bdbdbd;
-            --edge: rgba(255,255,255,.12);
         }
 
         *{ box-sizing:border-box; }
@@ -31,17 +31,19 @@
             background: linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.35));
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+
+            /* important: no "space-between" since there's no nav anymore */
             display:flex;
             align-items:center;
-            justify-content:space-between;
-            gap:14px;
+            justify-content:flex-start;
         }
 
-        /* Make the logo clickable */
+        /* Logo is the home link */
         .brand-link{
             display:inline-flex;
             align-items:center;
             text-decoration:none;
+            cursor:pointer;
         }
 
         .brand-link img{
@@ -106,12 +108,10 @@
 
 <body>
 <header>
-    <!-- Logo now links home -->
-    <a class="brand-link" href="../" aria-label="Go to Home">
+    <!-- Click the logo to go Home -->
+    <a class="brand-link" href="../index.html" aria-label="Go to Home">
         <img src="../RodeoLens.png" alt="Rodeo Lens" />
     </a>
-
-    <!-- Home button removed -->
 </header>
 
 <main>
