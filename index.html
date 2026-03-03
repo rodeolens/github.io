@@ -38,11 +38,11 @@
             z-index:10;
         }
 
-        /* Manifesto link pill (CLICKABLE) */
-        .manifesto-pill{
+        /* Manifesto text link (top-left, no bubble) */
+        .manifesto-link{
             position:absolute;
             top:18px;
-            right:22px;
+            left:22px;
 
             pointer-events:auto;
             text-decoration:none;
@@ -51,21 +51,16 @@
             letter-spacing:.18em;
             text-transform:uppercase;
             font-size:12px;
-            padding:10px 12px;
-            border:1px solid var(--edge);
-            border-radius:999px;
-            background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
             user-select:none;
 
-            transition: transform .15s ease, border-color .15s ease, background .15s ease;
+            opacity:.9;
+            transition: opacity .15s ease;
         }
 
-        .manifesto-pill:hover{
-            transform: translateY(-1px);
-            border-color: rgba(255,255,255,.25);
-            background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+        .manifesto-link:hover{
+            opacity:1;
+            text-decoration: underline;
+            text-underline-offset: 6px;
         }
 
         .brand{
@@ -157,8 +152,8 @@
 
 <body>
 <header class="topbar">
-    <!-- NOTE: points to /manifesto via folder -->
-    <a class="manifesto-pill" href="manifesto/">Manifesto</a>
+    <!-- Manifesto moved to top-left, text only -->
+    <a class="manifesto-link" href="manifesto/">Manifesto</a>
 
     <div class="brand" aria-hidden="true">
         <img src="RodeoLens.png" alt="Rodeo Lens" />
