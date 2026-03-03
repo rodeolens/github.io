@@ -138,6 +138,33 @@
                 letter-spacing: .16em;
             }
         }
+
+        /* ===========================
+           FIX #1: Mobile header stack
+           =========================== */
+        @media (max-width: 560px){
+            .topbar{
+                padding:14px 16px;
+                align-items:center;
+            }
+
+            /* put MANIFESTO on its own row */
+            .manifesto-link{
+                position:static;   /* stop absolute overlap */
+                display:block;
+                text-align:left;
+                margin-bottom:10px;
+            }
+
+            /* keep logo centered on its own row */
+            .brand-link{
+                justify-content:center;
+            }
+
+            .brand-link img{
+                height:38px;       /* slightly smaller logo on mobile */
+            }
+        }
     </style>
 </head>
 
