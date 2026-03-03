@@ -42,7 +42,7 @@
             z-index:10;
         }
 
-        /* Manifesto text link (top-left, no bubble) */
+        /* Desktop Manifesto text link (top-left, no bubble) */
         .manifesto-link{
             position:absolute;
             top:18px;
@@ -153,29 +153,108 @@
         }
 
         /* ===========================
-           FIX #1: Mobile layout fix
+           MOBILE MENU (top-left)
            =========================== */
+
+        /* hamburger button hidden on desktop */
+        .menu-btn{
+            display:none;
+            pointer-events:auto;
+            position:absolute;
+            top:14px;
+            left:14px;
+
+            width:42px;
+            height:42px;
+            border:1px solid var(--edge);
+            background: rgba(0,0,0,.25);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius:10px;
+
+            align-items:center;
+            justify-content:center;
+            cursor:pointer;
+        }
+
+        .menu-btn:focus{
+            outline:2px solid rgba(255,255,255,.25);
+            outline-offset:2px;
+        }
+
+        .menu-icon{
+            width:18px;
+            height:12px;
+            position:relative;
+        }
+        .menu-icon span{
+            position:absolute;
+            left:0;
+            right:0;
+            height:2px;
+            background: rgba(255,255,255,.9);
+            border-radius:2px;
+        }
+        .menu-icon span:nth-child(1){ top:0; }
+        .menu-icon span:nth-child(2){ top:5px; opacity:.85; }
+        .menu-icon span:nth-child(3){ top:10px; }
+
+        /* dropdown panel */
+        .menu-panel{
+            display:none;
+            pointer-events:auto;
+            position:absolute;
+            top:62px;
+            left:14px;
+
+            min-width: 180px;
+            border:1px solid var(--edge);
+            background: rgba(0,0,0,.55);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 18px 40px rgba(0,0,0,.55);
+            padding:10px;
+        }
+
+        .menu-panel a{
+            display:block;
+            padding:10px 12px;
+            text-decoration:none;
+            color:var(--fg);
+            letter-spacing:.14em;
+            text-transform:uppercase;
+            font-size:13px;
+            opacity:.92;
+            border:1px solid transparent;
+        }
+
+        .menu-panel a:hover{
+            opacity:1;
+            border-color: rgba(255,255,255,.12);
+        }
+
+        /* show menu + hide desktop manifesto link on mobile */
         @media (max-width: 560px){
             .topbar{
                 padding:14px 16px;
                 align-items:center;
             }
 
-            /* put MANIFESTO on its own row */
             .manifesto-link{
-                position:static;    /* stop absolute overlap */
-                display:block;
-                text-align:left;
-                margin-bottom:10px;
+                display:none; /* replaced by dropdown menu */
             }
 
-            /* keep logo centered on its own row */
-            .brand{
-                justify-content:center;
+            .menu-btn{
+                display:flex;
             }
 
             .brand img{
-                height:38px;        /* slightly smaller logo on mobile */
+                height:38px;
+            }
+
+            /* when open */
+            .menu-panel.is-open{
+                display:block;
             }
         }
     </style>
@@ -183,7 +262,19 @@
 
 <body>
 <header class="topbar">
-    <!-- Use absolute path so URL stays clean -->
+    <!-- Mobile menu button (only visible on mobile) -->
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="menuPanel">
+        <div class="menu-icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+        </div>
+    </button>
+
+    <!-- Mobile dropdown -->
+    <nav class="menu-panel" id="menuPanel" aria-label="Site menu">
+        <a href="/manifesto/">Manifesto</a>
+    </nav>
+
+    <!-- Desktop link (hidden on mobile) -->
     <a class="manifesto-link" href="/manifesto/">Manifesto</a>
 
     <div class="brand" aria-hidden="true">
@@ -192,7 +283,6 @@
 </header>
 
 <main class="wrap">
-    <!-- Use absolute path so URL stays clean -->
     <a class="scorpion-link" href="/manifesto/" aria-label="Open Manifesto">
         <div class="scorpion-fade">
             <div class="scorpion-hover">
@@ -207,6 +297,32 @@
     if (location.pathname.endsWith("/index.html")) {
         history.replaceState(null, "", location.pathname.replace("/index.html", "/") + location.search + location.hash);
     }
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById("menuBtn");
+    const menuPanel = document.getElementById("menuPanel");
+
+    function closeMenu(){
+        menuPanel.classList.remove("is-open");
+        menuBtn.setAttribute("aria-expanded", "false");
+    }
+
+    menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = menuPanel.classList.toggle("is-open");
+        menuBtn.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    // Close on outside click
+    document.addEventListener("click", () => closeMenu());
+
+    // Close on Escape
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMenu();
+    });
+
+    // Prevent clicks inside the menu from closing before navigating
+    menuPanel.addEventListener("click", (e) => e.stopPropagation());
 </script>
 </body>
 </html>
