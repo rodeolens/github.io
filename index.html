@@ -34,17 +34,20 @@
             display:flex;
             align-items:flex-start;
             justify-content:center;
-            pointer-events:none; /* nothing clickable up here */
+            pointer-events:none; /* topbar itself doesn't block clicks */
             z-index:10;
         }
 
-        /* Manifesto text pill (NOT a link) */
+        /* Manifesto link pill (CLICKABLE) */
         .manifesto-pill{
             position:absolute;
             top:18px;
             right:22px;
-            pointer-events:none;
+
+            pointer-events:auto;            /* <-- allows clicking */
+            text-decoration:none;           /* <-- link styling */
             color:var(--fg);
+
             letter-spacing:.18em;
             text-transform:uppercase;
             font-size:12px;
@@ -55,6 +58,14 @@
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
             user-select:none;
+
+            transition: transform .15s ease, border-color .15s ease, background .15s ease;
+        }
+
+        .manifesto-pill:hover{
+            transform: translateY(-1px);
+            border-color: rgba(255,255,255,.25);
+            background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
         }
 
         .brand{
@@ -80,6 +91,14 @@
             align-items:center;
             justify-content:center;
             padding:120px 20px 60px;
+        }
+
+        /* Make the scorpion clickable */
+        .scorpion-link{
+            display:inline-block;
+            text-decoration:none;
+            outline:none;
+            cursor:pointer;
         }
 
         /* Fade-in wrapper (keeps fade separate from the image itself) */
@@ -121,7 +140,8 @@
 
 <body>
 <header class="topbar">
-    <div class="manifesto-pill">Manifesto</div>
+    <!-- CLICKABLE Manifesto -->
+    <a class="manifesto-pill" href="manifesto.html">Manifesto</a>
 
     <div class="brand" aria-hidden="true">
         <img src="RodeoLens.png" alt="Rodeo Lens" />
@@ -129,9 +149,12 @@
 </header>
 
 <main class="wrap">
-    <div class="scorpion-anim">
-        <img class="scorpion-img" src="Scorpion.png" alt="Scorpion" />
-    </div>
+    <!-- CLICKABLE Scorpion -->
+    <a class="scorpion-link" href="manifesto.html" aria-label="Open Manifesto">
+        <div class="scorpion-anim">
+            <img class="scorpion-img" src="Scorpion.png" alt="Scorpion" />
+        </div>
+    </a>
 </main>
 </body>
 </html>
