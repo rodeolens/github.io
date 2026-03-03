@@ -34,7 +34,7 @@
             display:flex;
             align-items:flex-start;
             justify-content:center;
-            pointer-events:none; /* topbar itself doesn't block clicks */
+            pointer-events:none;
             z-index:10;
         }
 
@@ -44,7 +44,7 @@
             top:18px;
             right:22px;
 
-            pointer-events:auto;            /* allows clicking */
+            pointer-events:auto;
             text-decoration:none;
             color:var(--fg);
 
@@ -101,24 +101,27 @@
             cursor:pointer;
         }
 
-        /* Fade-in wrapper */
-        .scorpion-anim{
-            display:inline-block;
+        /* OUTER = fade-in only (so hover doesn't break) */
+        .scorpion-fade{
             opacity:0;
             transform: translateY(10px);
-            animation: scorpionFadeIn 1300ms ease-out 120ms forwards;
+            animation: scorpionFadeIn 900ms ease-out 80ms forwards;
+        }
+
+        /* INNER = hover pop/bob only */
+        .scorpion-hover{
+            display:inline-block;
+            transform: translateY(0) scale(1);
+            transform-origin:center;
+            transition: transform 180ms ease, filter 180ms ease;
 
             filter:
                     drop-shadow(0 26px 38px rgba(0,0,0,.65))
                     drop-shadow(0 0 18px rgba(255,255,255,.04));
-
-            transition: transform 180ms ease, filter 180ms ease;
-            transform-origin: center;
         }
 
-        /* Hover pop (slightly bigger) */
-        .scorpion-link:hover .scorpion-anim{
-            transform: translateY(-2px) scale(1.04);
+        .scorpion-link:hover .scorpion-hover{
+            transform: translateY(-3px) scale(1.045);
             filter:
                     drop-shadow(0 30px 44px rgba(0,0,0,.70))
                     drop-shadow(0 0 22px rgba(255,255,255,.06));
@@ -140,12 +143,12 @@
         }
 
         @media (prefers-reduced-motion: reduce){
-            .scorpion-anim{
+            .scorpion-fade{
                 animation:none;
                 opacity:1;
                 transform:none;
             }
-            .scorpion-link:hover .scorpion-anim{
+            .scorpion-link:hover .scorpion-hover{
                 transform:none;
             }
         }
@@ -154,7 +157,8 @@
 
 <body>
 <header class="topbar">
-    <a class="manifesto-pill" href="manifesto.html">Manifesto</a>
+    <!-- NOTE: points to /manifesto via folder -->
+    <a class="manifesto-pill" href="manifesto/">Manifesto</a>
 
     <div class="brand" aria-hidden="true">
         <img src="RodeoLens.png" alt="Rodeo Lens" />
@@ -162,9 +166,11 @@
 </header>
 
 <main class="wrap">
-    <a class="scorpion-link" href="manifesto.html" aria-label="Open Manifesto">
-        <div class="scorpion-anim">
-            <img class="scorpion-img" src="Scorpion.png" alt="Scorpion" />
+    <a class="scorpion-link" href="manifesto/" aria-label="Open Manifesto">
+        <div class="scorpion-fade">
+            <div class="scorpion-hover">
+                <img class="scorpion-img" src="Scorpion.png" alt="Scorpion" />
+            </div>
         </div>
     </a>
 </main>
