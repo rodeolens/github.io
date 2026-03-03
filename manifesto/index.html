@@ -31,7 +31,7 @@
             overflow-x:hidden;
         }
 
-        /* Top bar (logo centered like home) */
+        /* Top bar (same style as home) */
         .topbar{
             position:fixed;
             inset:0 0 auto 0;
@@ -43,6 +43,32 @@
             z-index:10;
         }
 
+        /* "Manifesto" link (top-left, text only) -> goes HOME */
+        .manifesto-link{
+            position:absolute;
+            top:18px;
+            left:22px;
+
+            pointer-events:auto;
+            text-decoration:none;
+            color:var(--fg);
+
+            letter-spacing:.18em;
+            text-transform:uppercase;
+            font-size:14px;
+            user-select:none;
+
+            opacity:.9;
+            transition: opacity .15s ease;
+        }
+
+        .manifesto-link:hover{
+            opacity:1;
+            text-decoration: underline;
+            text-underline-offset: 6px;
+        }
+
+        /* Centered logo, clickable home too */
         .brand-link{
             pointer-events:auto;
             display:inline-flex;
@@ -84,24 +110,33 @@
             border-radius: 0;
             padding: 26px 26px;
 
-            /* text */
-            color: var(--fg);
-            font-size: 16px;
-            line-height: 1.8;
-            letter-spacing: 0.01em;
-
-            /* preserve your line breaks when you paste text */
+            /* preserve line breaks */
             white-space: pre-wrap;
         }
 
-        .placeholder{
-            color: var(--muted);
+        /* Match the main-page MANIFESTO link typographic style */
+        .manifesto-text{
+            margin:0;
+            color: var(--fg);
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            font-size: 14px;
+            line-height: 1.9;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+
+        .placeholder{ color: var(--muted); }
 
         @media (max-width: 520px){
             .manifesto-box{
                 padding: 18px;
                 min-height: min(520px, 68vh);
+            }
+            .manifesto-link{ font-size:13px; }
+            .manifesto-text{
+                font-size: 13px;
+                letter-spacing: .16em;
             }
         }
     </style>
@@ -109,6 +144,10 @@
 
 <body>
 <header class="topbar">
+    <!-- Stays at top; clicking goes HOME -->
+    <a class="manifesto-link" href="../index.html">Manifesto</a>
+
+    <!-- Logo centered; also goes HOME -->
     <a class="brand-link" href="../index.html" aria-label="Go to Home">
         <img src="../RodeoLens.png" alt="Rodeo Lens" />
     </a>
@@ -116,12 +155,14 @@
 
 <main class="wrap">
     <div class="manifesto-box">
-        <span class="placeholder">PASTE YOUR MANIFESTO TEXT HERE.</span>
+        <p class="manifesto-text placeholder">PASTE YOUR MANIFESTO TEXT HERE.</p>
 
-        <!-- Example formatting:
-        RODEO LENS IS...
-        LINE 2...
-        LINE 3...
+        <!-- Example:
+        <p class="manifesto-text">
+        WE MOVE QUIET.
+        WE SHOOT CLEAN.
+        WE DON'T ASK TWICE.
+        </p>
         -->
     </div>
 </main>
