@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Rodeo Lens</title>
+
     <style>
         :root{
             --bg:#070707;
@@ -13,6 +14,7 @@
 
         *{ box-sizing:border-box; }
         html,body{ height:100%; }
+
         body{
             margin:0;
             background:
@@ -32,7 +34,7 @@
             display:flex;
             align-items:flex-start;
             justify-content:center;
-            pointer-events:none;
+            pointer-events:none; /* only links should receive clicks */
             z-index:10;
         }
 
@@ -54,6 +56,7 @@
             -webkit-backdrop-filter: blur(6px);
             transition: transform .15s ease, border-color .15s ease, background .15s ease;
         }
+
         .manifesto-link:hover{
             transform: translateY(-1px);
             border-color: rgba(255,255,255,.25);
@@ -66,6 +69,7 @@
             justify-content:center;
             width:100%;
         }
+
         .brand img{
             height:44px;
             width:auto;
@@ -81,10 +85,9 @@
             display:flex;
             align-items:center;
             justify-content:center;
-            padding:120px 20px 60px;
+            padding:120px 20px 60px; /* room for topbar */
         }
 
-        /* Scorpion */
         .scorpion-link{
             display:inline-block;
             text-decoration:none;
@@ -92,23 +95,47 @@
             cursor:pointer;
         }
 
+        /* Wrapper handles hover transform so it won't fight the fade-in */
+        .scorpion-anim{
+            display:inline-block;
+            opacity:0;
+            transform: translateY(10px);
+            animation: scorpionFadeIn 900ms ease-out 120ms forwards;
+            transition: transform .18s ease, filter .18s ease;
+            filter:
+                    drop-shadow(0 26px 38px rgba(0,0,0,.65))
+                    drop-shadow(0 0 18px rgba(255,255,255,.04));
+        }
+
         .scorpion-img{
-            width: min(520px, 82vw); /* bigger than before */
+            width: min(520px, 82vw); /* bigger */
             height:auto;
             display:block;
             user-select:none;
             -webkit-user-drag:none;
-            filter:
-                    drop-shadow(0 26px 38px rgba(0,0,0,.65))
-                    drop-shadow(0 0 18px rgba(255,255,255,.04));
-            transition: transform .18s ease, filter .18s ease;
         }
 
-        .scorpion-link:hover .scorpion-img{
-            transform: translateY(-2px) scale(1.01);
+        .scorpion-link:hover .scorpion-anim{
+            transform: translateY(6px) scale(1.01); /* keeps it subtle on hover */
             filter:
                     drop-shadow(0 30px 44px rgba(0,0,0,.70))
                     drop-shadow(0 0 22px rgba(255,255,255,.06));
+        }
+
+        @keyframes scorpionFadeIn{
+            to{
+                opacity:1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Accessibility: disable animation if user prefers reduced motion */
+        @media (prefers-reduced-motion: reduce){
+            .scorpion-anim{
+                animation:none;
+                opacity:1;
+                transform:none;
+            }
         }
     </style>
 </head>
@@ -124,7 +151,9 @@
 
 <main class="wrap">
     <a class="scorpion-link" href="manifesto.html" aria-label="Open Manifesto">
-        <img class="scorpion-img" src="Scorpion.png" alt="Scorpion" />
+        <div class="scorpion-anim">
+            <img class="scorpion-img" src="Scorpion.png" alt="Scorpion" />
+        </div>
     </a>
 </main>
 </body>
