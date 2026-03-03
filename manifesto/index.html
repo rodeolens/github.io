@@ -14,6 +14,7 @@
 
         *{ box-sizing:border-box; }
         html,body{ height:100%; }
+
         body{
             margin:0;
             background: radial-gradient(1200px 700px at 50% 20%, rgba(255,255,255,.06), transparent 60%), var(--bg);
@@ -36,31 +37,26 @@
             gap:14px;
         }
 
-        .brand img{
+        /* Make the logo clickable */
+        .brand-link{
+            display:inline-flex;
+            align-items:center;
+            text-decoration:none;
+        }
+
+        .brand-link img{
             height:34px;
             width:auto;
             opacity:.95;
             user-select:none;
             -webkit-user-drag:none;
             filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));
+            transition: transform .15s ease, opacity .15s ease;
         }
 
-        .nav a{
-            text-decoration:none;
-            color:var(--fg);
-            letter-spacing:.18em;
-            text-transform:uppercase;
-            font-size:12px;
-            padding:10px 12px;
-            border:1px solid var(--edge);
-            border-radius:999px;
-            background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-            transition: transform .15s ease, border-color .15s ease, background .15s ease;
-        }
-        .nav a:hover{
+        .brand-link:hover img{
             transform: translateY(-1px);
-            border-color: rgba(255,255,255,.25);
-            background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+            opacity:1;
         }
 
         main{
@@ -110,13 +106,12 @@
 
 <body>
 <header>
-    <div class="brand">
+    <!-- Logo now links home -->
+    <a class="brand-link" href="../" aria-label="Go to Home">
         <img src="../RodeoLens.png" alt="Rodeo Lens" />
-    </div>
+    </a>
 
-    <nav class="nav">
-        <a href="../">Home</a>
-    </nav>
+    <!-- Home button removed -->
 </header>
 
 <main>
@@ -124,9 +119,9 @@
     <div class="sub">Black. White. Chrome. Minimal intent.</div>
 
     <section class="panel">
-        <p><strong>Rodeo Lens</strong> is built on clarity—no noise, no filler, just signal.</p>
+        <p><strong>Rodeo Lens</strong></p>
         <div class="rule"></div>
-        <p>Drop your manifesto text here.</p>
+        <p>.</p>
     </section>
 </main>
 </body>
