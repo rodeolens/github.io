@@ -8,10 +8,6 @@
         :root{
             --bg:#070707;
             --fg:#f2f2f2;
-            --muted:#bdbdbd;
-            --chrome-1: rgba(255,255,255,.9);
-            --chrome-2: rgba(200,200,200,.35);
-            --chrome-3: rgba(255,255,255,.06);
             --edge: rgba(255,255,255,.12);
         }
 
@@ -19,11 +15,12 @@
         html,body{ height:100%; }
         body{
             margin:0;
-            background: radial-gradient(1200px 700px at 50% 30%, rgba(255,255,255,.06), transparent 60%),
-            radial-gradient(900px 600px at 50% 80%, rgba(255,255,255,.03), transparent 55%),
-            var(--bg);
+            background:
+                    radial-gradient(1200px 700px at 50% 30%, rgba(255,255,255,.06), transparent 60%),
+                    radial-gradient(900px 600px at 50% 80%, rgba(255,255,255,.03), transparent 55%),
+                    var(--bg);
             color:var(--fg);
-            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
             overflow-x:hidden;
         }
 
@@ -35,7 +32,7 @@
             display:flex;
             align-items:flex-start;
             justify-content:center;
-            pointer-events:none; /* allow clicks only on items that enable it */
+            pointer-events:none;
             z-index:10;
         }
 
@@ -78,114 +75,40 @@
             -webkit-user-drag:none;
         }
 
-        /* Layout */
+        /* Center layout */
         .wrap{
             min-height:100%;
             display:flex;
-            flex-direction:column;
             align-items:center;
             justify-content:center;
             padding:120px 20px 60px;
         }
 
-        /* Scorpion hero */
+        /* Scorpion */
         .scorpion-link{
             display:inline-block;
             text-decoration:none;
             outline:none;
-        }
-        .scorpion-wrap{
-            position:relative;
-            display:inline-grid;
-            place-items:center;
-            padding:10px;
-            border-radius:26px;
-            transition: transform .18s ease, filter .18s ease;
-        }
-
-        /* subtle chrome frame around the hero */
-        .scorpion-wrap::before{
-            content:"";
-            position:absolute;
-            inset:-2px;
-            border-radius:28px;
-            background:
-                    linear-gradient(135deg,
-                    rgba(255,255,255,.22),
-                    rgba(255,255,255,.04) 30%,
-                    rgba(255,255,255,.14) 60%,
-                    rgba(255,255,255,.02)
-                    );
-            opacity:.35;
-            pointer-events:none;
-            filter: blur(.2px);
+            cursor:pointer;
         }
 
         .scorpion-img{
-            position:relative;
-            width:min(420px, 70vw);
+            width: min(520px, 82vw); /* bigger than before */
             height:auto;
             display:block;
             user-select:none;
             -webkit-user-drag:none;
             filter:
-                    drop-shadow(0 22px 30px rgba(0,0,0,.6))
-                    drop-shadow(0 0 18px rgba(255,255,255,.06));
-            transform: translateZ(0);
+                    drop-shadow(0 26px 38px rgba(0,0,0,.65))
+                    drop-shadow(0 0 18px rgba(255,255,255,.04));
+            transition: transform .18s ease, filter .18s ease;
         }
 
-        /* Chrome glisten sweep (only on hover) */
-        .scorpion-wrap::after{
-            content:"";
-            position:absolute;
-            inset:-12%;
-            border-radius:34px;
-
-            /* the “sweep” */
-            background: linear-gradient(
-                    120deg,
-                    transparent 0%,
-                    rgba(255,255,255,0.00) 28%,
-                    rgba(255,255,255,0.75) 48%,
-                    rgba(220,220,220,0.28) 56%,
-                    rgba(255,255,255,0.06) 62%,
-                    transparent 78%,
-                    transparent 100%
-            );
-
-            transform: translateX(-140%);
-            opacity:0;
-            pointer-events:none;
-
-            /* makes it feel like light reflecting off chrome */
-            mix-blend-mode: screen;
-            filter: blur(1.6px);
-        }
-
-        .scorpion-link:hover .scorpion-wrap{
+        .scorpion-link:hover .scorpion-img{
             transform: translateY(-2px) scale(1.01);
-            filter: brightness(1.02);
-            cursor:pointer;
-        }
-        .scorpion-link:hover .scorpion-wrap::after{
-            opacity:1;
-            animation: glisten 1.25s linear infinite;
-        }
-
-        @keyframes glisten{
-            0%   { transform: translateX(-140%) rotate(0.001deg); }
-            100% { transform: translateX(140%)  rotate(0.001deg); }
-        }
-
-        /* optional tiny footer vibe */
-        .hint{
-            margin-top:22px;
-            color:var(--muted);
-            font-size:12px;
-            letter-spacing:.14em;
-            text-transform:uppercase;
-            opacity:.7;
-            user-select:none;
+            filter:
+                    drop-shadow(0 30px 44px rgba(0,0,0,.70))
+                    drop-shadow(0 0 22px rgba(255,255,255,.06));
         }
     </style>
 </head>
@@ -201,12 +124,8 @@
 
 <main class="wrap">
     <a class="scorpion-link" href="manifesto.html" aria-label="Open Manifesto">
-        <div class="scorpion-wrap">
-            <img class="scorpion-img" src="Scorpion.png" alt="Scorpion" />
-        </div>
+        <img class="scorpion-img" src="Scorpion.png" alt="Scorpion" />
     </a>
-
-    <div class="hint">Click the mark</div>
 </main>
 </body>
 </html>
