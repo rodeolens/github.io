@@ -1,328 +1,314 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Rodeo Lens</title>
-
-    <!-- Scorpion favicon -->
-    <link rel="icon" type="image/png" href="Scorpion.png">
-    <link rel="apple-touch-icon" href="Scorpion.png">
-
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Rodeo Lens™</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet"/>
     <style>
-        :root{
-            --bg:#070707;
-            --fg:#f2f2f2;
-            --edge: rgba(255,255,255,.12);
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --white: #f7f4ef;
+            --black: #0a0a0a;
+            --light: #c8c4bc;
         }
+        html, body {
+            width: 100%; height: 100%;
+            background: var(--black);
+            color: var(--white);
+            font-family: 'EB Garamond', Georgia, serif;
+        }
+        .page {
+            position: fixed;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.65s ease;
+        }
+        .page.active { opacity: 1; pointer-events: all; }
 
-        *{ box-sizing:border-box; }
-        html,body{ height:100%; }
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 34px 44px;
+        }
+        .nav-left { display: flex; flex-direction: column; gap: 1px; }
+        .nav-btn {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.05rem;
+            font-style: italic;
+            color: var(--white);
+            opacity: 0.72;
+            transition: opacity 0.2s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            text-align: left;
+            line-height: 1.55;
+        }
+        .nav-btn:hover { opacity: 1; }
+        .nav-logo {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.05rem;
+            font-style: italic;
+            color: var(--white);
+            opacity: 0.72;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .nav-logo:hover { opacity: 1; }
 
-        body{
-            margin:0;
+        #home { background: var(--black); }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+        .hero-bg img {
+            width: auto;
+            height: auto;
+            max-width: 55vw;
+            max-height: 65vh;
+            object-fit: contain;
+            opacity: 0.9;
+        }
+        .home-bottom {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 34px 44px;
+        }
+        .socials-col { display: flex; flex-direction: column; gap: 1px; }
+        .socials-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--white);
+            opacity: 0.38;
+            margin-bottom: 3px;
+        }
+        .socials-col a {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.05rem;
+            font-style: italic;
+            color: var(--white);
+            opacity: 0.7;
+            text-decoration: none;
+            line-height: 1.55;
+        }
+        .socials-col a:hover { opacity: 1; }
+        .home-cta button {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.05rem;
+            font-style: italic;
+            color: var(--white);
+            opacity: 0.7;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        .home-cta button:hover { opacity: 1; }
+
+        #manifesto {
+            background: var(--black);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+        .manifesto-inner {
+            flex: 1;
+            padding: 130px 44px 60px;
+            max-width: 660px;
+        }
+        .manifesto-text p {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            line-height: 1.78;
+            color: var(--white);
+            opacity: 0.88;
+            margin-bottom: 1.5em;
+        }
+        .manifesto-text p:last-child { margin-bottom: 0; }
+        .manifesto-foot {
+            padding: 32px 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(247,244,239,0.08);
+        }
+        .manifesto-foot span, .manifesto-foot a {
+            font-family: 'EB Garamond', serif;
+            font-size: 0.88rem;
+            font-style: italic;
+            color: var(--white);
+            opacity: 0.45;
+            text-decoration: none;
+        }
+        .manifesto-foot a:hover { opacity: 0.8; }
+        .manifesto-foot-links { display: flex; gap: 22px; }
+
+        #drop { background: var(--black); }
+        .drop-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .drop-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0.72;
+            filter: brightness(0.92) contrast(1.06);
+        }
+        .drop-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
             background:
-                    radial-gradient(1200px 700px at 50% 30%, rgba(255,255,255,.06), transparent 60%),
-                    radial-gradient(900px 600px at 50% 80%, rgba(255,255,255,.03), transparent 55%),
-                    var(--bg);
-            color:var(--fg);
-            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-            overflow-x:hidden;
+                    linear-gradient(to right, rgba(10,10,10,0.65) 0%, rgba(10,10,10,0.1) 55%, transparent 100%),
+                    linear-gradient(to top, rgba(10,10,10,0.55) 0%, transparent 40%);
+        }
+        .drop-bottom {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 34px 44px;
+        }
+        .drop-left { max-width: 400px; }
+        .drop-kicker {
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--light);
+            opacity: 0.5;
+            margin-bottom: 8px;
+        }
+        .drop-title {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            font-style: italic;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 14px;
+        }
+        .drop-desc {
+            font-family: 'EB Garamond', serif;
+            font-size: 1rem;
+            line-height: 1.68;
+            color: var(--light);
+            opacity: 0.68;
+        }
+        .drop-right {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            align-items: flex-end;
+        }
+        .drop-spec {
+            font-family: 'EB Garamond', serif;
+            font-size: 0.88rem;
+            font-style: italic;
+            color: var(--white);
+            opacity: 0.42;
         }
 
-        /* Top bar */
-        .topbar{
-            position:fixed;
-            inset:0 0 auto 0;
-            padding:18px 22px;
-            display:flex;
-            align-items:flex-start;
-            justify-content:center;
-            pointer-events:none;
-            z-index:10;
-        }
-
-        /* Desktop Manifesto text link (top-left, no bubble) */
-        .manifesto-link{
-            position:absolute;
-            top:18px;
-            left:22px;
-
-            pointer-events:auto;
-            text-decoration:none;
-            color:var(--fg);
-
-            letter-spacing:.18em;
-            text-transform:uppercase;
-            font-size:14px;
-            user-select:none;
-
-            opacity:.9;
-            transition: opacity .15s ease;
-        }
-
-        .manifesto-link:hover{
-            opacity:1;
-            text-decoration: underline;
-            text-underline-offset: 6px;
-        }
-
-        .brand{
-            pointer-events:none;
-            display:flex;
-            justify-content:center;
-            width:100%;
-        }
-
-        .brand img{
-            height:44px;
-            width:auto;
-            opacity:.95;
-            filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));
-            user-select:none;
-            -webkit-user-drag:none;
-        }
-
-        /* Center layout */
-        .wrap{
-            min-height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:120px 20px 60px;
-        }
-
-        /* Scorpion link wrapper */
-        .scorpion-link{
-            display:inline-block;
-            text-decoration:none;
-            outline:none;
-            cursor:pointer;
-        }
-
-        /* OUTER = fade-in only (so hover doesn't break) */
-        .scorpion-fade{
-            opacity:0;
-            transform: translateY(10px);
-            animation: scorpionFadeIn 900ms ease-out 80ms forwards;
-        }
-
-        /* INNER = hover pop/bob only */
-        .scorpion-hover{
-            display:inline-block;
-            transform: translateY(0) scale(1);
-            transform-origin:center;
-            transition: transform 180ms ease, filter 180ms ease;
-
-            filter:
-                    drop-shadow(0 26px 38px rgba(0,0,0,.65))
-                    drop-shadow(0 0 18px rgba(255,255,255,.04));
-        }
-
-        .scorpion-link:hover .scorpion-hover{
-            transform: translateY(-3px) scale(1.02);
-            filter:
-                    drop-shadow(0 30px 44px rgba(0,0,0,.70))
-                    drop-shadow(0 0 22px rgba(255,255,255,.06));
-        }
-
-        .scorpion-img{
-            width: min(520px, 82vw);
-            height:auto;
-            display:block;
-            user-select:none;
-            -webkit-user-drag:none;
-        }
-
-        @keyframes scorpionFadeIn{
-            to{
-                opacity:1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce){
-            .scorpion-fade{
-                animation:none;
-                opacity:1;
-                transform:none;
-            }
-            .scorpion-link:hover .scorpion-hover{
-                transform:none;
-            }
-        }
-
-        /* ===========================
-           MOBILE MENU (top-left)
-           =========================== */
-
-        /* hamburger button hidden on desktop */
-        .menu-btn{
-            display:none;
-            pointer-events:auto;
-            position:absolute;
-            top:14px;
-            left:14px;
-
-            width:42px;
-            height:42px;
-            border:1px solid var(--edge);
-            background: rgba(0,0,0,.25);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius:10px;
-
-            align-items:center;
-            justify-content:center;
-            cursor:pointer;
-        }
-
-        .menu-btn:focus{
-            outline:2px solid rgba(255,255,255,.25);
-            outline-offset:2px;
-        }
-
-        .menu-icon{
-            width:18px;
-            height:12px;
-            position:relative;
-        }
-        .menu-icon span{
-            position:absolute;
-            left:0;
-            right:0;
-            height:2px;
-            background: rgba(255,255,255,.9);
-            border-radius:2px;
-        }
-        .menu-icon span:nth-child(1){ top:0; }
-        .menu-icon span:nth-child(2){ top:5px; opacity:.85; }
-        .menu-icon span:nth-child(3){ top:10px; }
-
-        /* dropdown panel */
-        .menu-panel{
-            display:none;
-            pointer-events:auto;
-            position:absolute;
-            top:62px;
-            left:14px;
-
-            min-width: 180px;
-            border:1px solid var(--edge);
-            background: rgba(0,0,0,.55);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 18px 40px rgba(0,0,0,.55);
-            padding:10px;
-        }
-
-        .menu-panel a{
-            display:block;
-            padding:10px 12px;
-            text-decoration:none;
-            color:var(--fg);
-            letter-spacing:.14em;
-            text-transform:uppercase;
-            font-size:13px;
-            opacity:.92;
-            border:1px solid transparent;
-        }
-
-        .menu-panel a:hover{
-            opacity:1;
-            border-color: rgba(255,255,255,.12);
-        }
-
-        /* show menu + hide desktop manifesto link on mobile */
-        @media (max-width: 560px){
-            .topbar{
-                padding:14px 16px;
-                align-items:center;
-            }
-
-            .manifesto-link{
-                display:none; /* replaced by dropdown menu */
-            }
-
-            .menu-btn{
-                display:flex;
-            }
-
-            .brand img{
-                height:38px;
-            }
-
-            /* when open */
-            .menu-panel.is-open{
-                display:block;
-            }
+        @media (max-width: 620px) {
+            nav, .home-bottom, .drop-bottom, .manifesto-foot { padding: 24px 26px; }
+            .manifesto-inner { padding: 110px 26px 50px; }
+            .drop-bottom { flex-direction: column; align-items: flex-start; gap: 18px; }
+            .drop-right { align-items: flex-start; text-align: left; }
         }
     </style>
 </head>
-
 <body>
-<header class="topbar">
-    <!-- Mobile menu button (only visible on mobile) -->
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="menuPanel">
-        <div class="menu-icon" aria-hidden="true">
-            <span></span><span></span><span></span>
-        </div>
-    </button>
 
-    <!-- Mobile dropdown -->
-    <nav class="menu-panel" id="menuPanel" aria-label="Site menu">
-        <a href="/manifesto/">Manifesto</a>
-    </nav>
-
-    <!-- Desktop link (hidden on mobile) -->
-    <a class="manifesto-link" href="/manifesto/">Manifesto</a>
-
-    <div class="brand" aria-hidden="true">
-        <img src="RodeoLens.png" alt="Rodeo Lens" />
+<nav>
+    <div class="nav-left">
+        <button class="nav-btn" onclick="show('manifesto')">Manifesto</button>
     </div>
-</header>
+    <div class="nav-logo" onclick="show('home')">Rodeo Lens™</div>
+</nav>
 
-<main class="wrap">
-    <a class="scorpion-link" href="/manifesto/" aria-label="Open Manifesto">
-        <div class="scorpion-fade">
-            <div class="scorpion-hover">
-                <img class="scorpion-img" src="Scorpion.png" alt="Scorpion" />
-            </div>
+<div id="home" class="page active">
+    <div class="hero-bg">
+        <img src="https://rodeolens.com/Scorpion.png" alt="Rodeo Lens Signal"/>
+    </div>
+    <div class="home-bottom">
+        <div class="socials-col">
+            <span class="socials-label">Socials</span>
+            <a href="https://instagram.com/rodeo.lens" target="_blank">Instagram</a>
+            <a href="https://rodeolens.com">rodeolens.com</a>
         </div>
-    </a>
-</main>
+        <div class="home-cta">
+            <button onclick="show('drop')">Drop 01</button>
+        </div>
+    </div>
+</div>
 
-<!-- Optional: if someone lands on /index.html, normalize to / -->
+<div id="manifesto" class="page">
+    <div class="manifesto-inner">
+        <div class="manifesto-text">
+            <p>Technology will continue to shape how we live.</p>
+            <p>Cities will grow brighter. Signals will become more constant. Connectivity will deepen.</p>
+            <p>Our goal is simple: to design eyewear that evolves with that reality.</p>
+            <p>Rodeo Lens exists for those who move through modern environments with awareness — people who believe that performance, design, and innovation should exist in the same object.</p>
+            <p>For those who understand that what you put on is more than aesthetic. That every lens is a decision. That clarity is a form of power.</p>
+            <p>This is the beginning.</p>
+            <p>Welcome to Rodeo Lens™.</p>
+        </div>
+    </div>
+    <div class="manifesto-foot">
+        <span>Rodeo Lens™ © 2025</span>
+        <div class="manifesto-foot-links">
+            <a href="https://instagram.com/rodeo.lens" target="_blank">Instagram</a>
+            <a href="https://rodeolens.com">rodeolens.com</a>
+        </div>
+    </div>
+</div>
+
+<div id="drop" class="page">
+    <div class="drop-bg">
+        <img src="BLK_Sunglasses_Mock_Up.png" alt="Signal"/>
+    </div>
+    <div class="drop-bottom">
+        <div class="drop-left">
+            <div class="drop-kicker">Drop 01</div>
+            <div class="drop-title">Signal</div>
+            <p class="drop-desc">A sculpted matte black silhouette engineered for modern environments. Crafted from precision acetate, finished with a conductive silver interior coating designed to reduce electromagnetic interference.</p>
+        </div>
+        <div class="drop-right">
+            <span class="drop-spec">Drop 01</span>
+        </div>
+    </div>
+</div>
+
 <script>
-    if (location.pathname.endsWith("/index.html")) {
-        history.replaceState(null, "", location.pathname.replace("/index.html", "/") + location.search + location.hash);
+    function show(id) {
+        var pages = document.querySelectorAll('.page');
+        for (var i = 0; i < pages.length; i++) pages[i].classList.remove('active');
+        document.getElementById(id).classList.add('active');
     }
-
-    // Mobile menu toggle
-    const menuBtn = document.getElementById("menuBtn");
-    const menuPanel = document.getElementById("menuPanel");
-
-    function closeMenu(){
-        menuPanel.classList.remove("is-open");
-        menuBtn.setAttribute("aria-expanded", "false");
-    }
-
-    menuBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const isOpen = menuPanel.classList.toggle("is-open");
-        menuBtn.setAttribute("aria-expanded", String(isOpen));
-    });
-
-    // Close on outside click
-    document.addEventListener("click", () => closeMenu());
-
-    // Close on Escape
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeMenu();
-    });
-
-    // Prevent clicks inside the menu from closing before navigating
-    menuPanel.addEventListener("click", (e) => e.stopPropagation());
 </script>
+
 </body>
 </html>
