@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Rodeo Lens™</title>
-    <link rel="icon" type="image/png" href="https://rodeolens.com/Scorpion.png"/>
+    <link rel="icon" type="image/png" href="Scorpion.png"/>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet"/>
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -70,6 +70,13 @@
             object-fit: contain;
         }
         .nav-center img:hover { opacity: 1; }
+        .nav-logo-fallback {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.05rem;
+            font-style: italic;
+            color: var(--white);
+            opacity: 0.88;
+        }
         .nav-right {
             display: flex;
             justify-content: flex-end;
@@ -303,14 +310,16 @@
         <button class="nav-btn" onclick="show('manifesto')">Manifesto</button>
     </div>
     <div class="nav-center" onclick="show('home')">
-        <img src="Rodeolens.png" alt="Rodeo Lens"/>
+        <img src="Rodeolens.png" alt="Rodeo Lens™"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"/>
+        <span class="nav-logo-fallback" style="display:none;">Rodeo Lens™</span>
     </div>
     <div class="nav-right"></div>
 </nav>
 
 <div id="home" class="page active">
     <div class="hero-bg">
-        <img src="https://rodeolens.com/Scorpion.png" alt="Rodeo Lens Signal"/>
+        <img src="Scorpion.png" alt="Rodeo Lens Signal"/>
     </div>
     <div class="home-bottom">
         <div class="socials-col">
